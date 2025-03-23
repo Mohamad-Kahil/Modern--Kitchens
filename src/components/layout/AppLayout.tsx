@@ -9,9 +9,22 @@ import { useLanguage } from "@/context/LanguageContext";
 interface AppLayoutProps {
   children?: React.ReactNode;
   onLogout?: () => void;
+  userName?: string;
+  userAvatar?: string;
+  isLoggedIn?: boolean;
+  moduleData?: {
+    submodules?: Array<{ id: string; label: string }>;
+  };
 }
 
-const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout }) => {
+const AppLayout: React.FC<AppLayoutProps> = ({
+  children,
+  onLogout,
+  userName,
+  userAvatar,
+  isLoggedIn = false,
+  moduleData,
+}) => {
   // State for sidebar collapse
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
@@ -31,7 +44,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout }) => {
   // Extract module title from path
   const getModuleTitle = () => {
     const path = pathName.split("/")[1];
-    if (!path) return "Dashboard";
+    if (!path) return "";
 
     // Convert path to title case
     return path.charAt(0).toUpperCase() + path.slice(1).replace(/-/g, " ");
@@ -44,13 +57,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout }) => {
 
   // Determine submodules based on current module
   const getSubmodules = () => {
-    // This would be dynamic based on the current module
-    // For now, return default submodules
-    return [
-      { id: "overview", label: "Overview" },
-      { id: "details", label: "Details" },
-      { id: "settings", label: "Settings" },
-    ];
+    // Return submodules from props if available, otherwise empty array
+    return moduleData?.submodules || [];
   };
 
   // Determine breadcrumbs based on current path
@@ -83,10 +91,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout }) => {
         {/* Header */}
         <Header
           moduleTitle={getModuleTitle()}
-          userName="John Doe"
-          userAvatar="https://api.dicebear.com/7.x/avataaars/svg?seed=John"
-          isLoggedIn={true}
-          onLogout={onLogout || (() => console.log("Logout clicked"))}
+          isLoggedIn={isLoggedIn}
+          onLogout={onLogout || (() => {})}
           sidebarCollapsed={sidebarCollapsed}
           onSidebarToggle={toggleSidebar}
         />
