@@ -17,6 +17,8 @@ import {
   FileArchive,
   Shield,
   Menu,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import {
   Tooltip,
@@ -27,6 +29,7 @@ import {
 
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
+import { Button } from "@/components/ui/button";
 
 interface SidebarProps {
   collapsed?: boolean;
@@ -120,7 +123,7 @@ const Sidebar = ({ collapsed = true, onToggle = () => {} }: SidebarProps) => {
 
   return (
     <div
-      className={`h-full min-h-screen ${isCollapsed ? "w-16" : "w-56"} transition-all duration-300 bg-micro-dark border-r border-border flex flex-col light:bg-white light:border-gray-200 ${isRTL ? "order-last" : "order-first"}`}
+      className={`h-full min-h-screen ${isCollapsed ? "w-16" : "w-56"} transition-all duration-300 bg-micro-dark border-r border-border flex flex-col ${theme === "light" ? "bg-white border-gray-200" : ""} ${isRTL ? "order-last" : "order-first"}`}
       dir={isRTL ? "rtl" : "ltr"}
     >
       {/* Logo and Company Name */}
@@ -130,11 +133,32 @@ const Sidebar = ({ collapsed = true, onToggle = () => {} }: SidebarProps) => {
             MK
           </div>
           {!isCollapsed && (
-            <div className="ml-3 mr-3 font-semibold text-foreground">
+            <div
+              className={`${isRTL ? "mr-3" : "ml-3"} font-semibold text-foreground`}
+            >
               {isRTL ? "المطابخ الحديثة" : "Modern Kitchens"}
             </div>
           )}
         </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggleSidebar}
+          className="text-muted-foreground hover:text-foreground"
+          aria-label="Toggle sidebar"
+        >
+          {isCollapsed ? (
+            isRTL ? (
+              <ChevronLeft size={18} />
+            ) : (
+              <ChevronRight size={18} />
+            )
+          ) : isRTL ? (
+            <ChevronRight size={18} />
+          ) : (
+            <ChevronLeft size={18} />
+          )}
+        </Button>
       </div>
 
       {/* Mobile Toggle */}

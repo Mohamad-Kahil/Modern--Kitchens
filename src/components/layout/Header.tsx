@@ -53,28 +53,9 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <header
-      className={`w-full h-18 bg-micro-dark border-b border-border flex items-center justify-between px-6 py-4 ${isRTL ? "flex-row-reverse" : "flex-row"} light:bg-white light:border-gray-200`}
+      className={`w-full h-18 bg-micro-dark border-b border-border flex items-center justify-between px-6 py-4 ${isRTL ? "flex-row-reverse" : "flex-row"} ${theme === "light" ? "bg-white border-gray-200" : ""}`}
     >
       <div className="flex items-center gap-3">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onSidebarToggle}
-          className="text-muted-foreground hover:text-foreground"
-          aria-label="Toggle sidebar"
-        >
-          {sidebarCollapsed ? (
-            isRTL ? (
-              <ChevronLeft size={18} />
-            ) : (
-              <ChevronRight size={18} />
-            )
-          ) : isRTL ? (
-            <ChevronRight size={18} />
-          ) : (
-            <ChevronLeft size={18} />
-          )}
-        </Button>
         <h1 className="text-xl font-semibold text-foreground">{moduleTitle}</h1>
       </div>
 
