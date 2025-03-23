@@ -59,6 +59,13 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   // Local state for theme and language if contexts aren't available
   const [localTheme, setLocalTheme] = useState<"light" | "dark">("light");
+
+  // Initialize theme on component mount
+  React.useEffect(() => {
+    // Apply initial theme
+    document.documentElement.classList.toggle("dark", localTheme === "dark");
+    document.documentElement.classList.toggle("light", localTheme === "light");
+  }, []);
   const [localLanguage, setLocalLanguage] = useState<"en" | "ar">("en");
   const [localIsRTL, setLocalIsRTL] = useState(false);
 
@@ -75,8 +82,13 @@ const Header: React.FC<HeaderProps> = ({
     toggleTheme = themeContext.toggleTheme;
   } catch (e) {
     theme = localTheme;
-    toggleTheme = () =>
-      setLocalTheme((prev) => (prev === "light" ? "dark" : "light"));
+    toggleTheme = () => {
+      const newTheme = localTheme === "light" ? "dark" : "light";
+      setLocalTheme(newTheme);
+      // Apply theme to document
+      document.documentElement.classList.remove("light", "dark");
+      document.documentElement.classList.add(newTheme);
+    };
   }
 
   try {
@@ -118,17 +130,20 @@ const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Theme Toggle */}
-        <div className="flex items-center gap-2">
-          {theme === "light" ? (
-            <Sun className="h-5 w-5 text-muted-foreground" />
-          ) : (
-            <Moon className="h-5 w-5 text-muted-foreground" />
-          )}
-          <Switch
-            checked={theme === "dark"}
-            onCheckedChange={toggleTheme}
+        <div className="flex items-center">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            className="text-muted-foreground hover:text-foreground"
             aria-label="Toggle theme"
-          />
+          >
+            {theme === "light" ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
+          </Button>
         </div>
 
         {/* User Profile */}

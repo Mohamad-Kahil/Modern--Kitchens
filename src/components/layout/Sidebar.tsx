@@ -124,7 +124,7 @@ const Sidebar = ({ collapsed = false, onToggle = () => {} }: SidebarProps) => {
 
   return (
     <div
-      className={`h-full min-h-screen ${isCollapsed ? "w-20" : "w-72"} transition-all duration-300 bg-micro-dark border-r border-border flex flex-col`}
+      className={`h-full min-h-screen ${isCollapsed ? "w-16" : "w-56"} transition-all duration-300 bg-micro-dark border-r border-border flex flex-col`}
       dir={isRTL ? "rtl" : "ltr"}
     >
       {/* Logo and Company Name */}

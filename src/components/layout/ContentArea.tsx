@@ -44,30 +44,7 @@ const ContentArea = ({
 
   return (
     <div className="flex flex-col w-full h-full bg-background p-6 overflow-auto dark:bg-micro-medium">
-      {/* Breadcrumbs */}
-      <div className="flex items-center mb-4 text-sm text-muted-foreground">
-        <Home className="h-4 w-4" />
-        <div className="flex items-center">
-          {breadcrumbs.map((crumb, index) => (
-            <React.Fragment key={crumb.href}>
-              <ChevronRight
-                className={cn("h-4 w-4 mx-2", isRTL ? "rotate-180" : "")}
-              />
-              <a
-                href={crumb.href}
-                className={cn(
-                  "hover:text-foreground transition-colors",
-                  index === breadcrumbs.length - 1
-                    ? "font-medium text-foreground"
-                    : "",
-                )}
-              >
-                {crumb.label}
-              </a>
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
+      {/* Breadcrumbs removed */}
 
       {/* Submodule Tabs */}
       <Tabs

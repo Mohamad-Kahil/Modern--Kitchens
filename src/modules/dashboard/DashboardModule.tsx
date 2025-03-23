@@ -261,14 +261,6 @@ const DashboardModule = ({ userName = "Admin" }: DashboardModuleProps) => {
     <div className="flex flex-col w-full h-full bg-background p-6 overflow-hidden">
       {/* Main container */}
       <div className="flex flex-col h-full">
-        {/* Header and welcome message */}
-        <div className="flex flex-row justify-between items-center mb-4">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
-            <p className="text-muted-foreground">Welcome back, {userName}</p>
-          </div>
-        </div>
-
         {/* Tab navigation and content container */}
         <div className="flex-1 overflow-hidden">
           <Tabs
