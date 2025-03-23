@@ -57,6 +57,15 @@ module.exports = {
         "micro-darker": "#0D1117",
         "micro-medium": "#1E293B",
         "micro-light": "#64748B",
+        "micro-light-bg": "#F0F4F8",
+        "micro-light-card": "#FFFFFF",
+        "micro-light-accent": "#E6F4FF",
+        "micro-light-border": "#E2E8F0",
+        "micro-light-text": "#334155",
+        "micro-light-muted": "#94A3B8",
+      },
+      boxShadow: {
+        "light-card": "0 2px 10px rgba(0, 0, 0, 0.05)",
       },
       borderRadius: {
         lg: "var(--radius)",

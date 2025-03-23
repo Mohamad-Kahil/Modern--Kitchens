@@ -4,34 +4,34 @@
 
 @layer base {
   :root {
-    /* Colorful Light Mode */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Vibrant Light Mode */
+    --background: 210 33% 96%; /* #F0F4F8 */
+    --foreground: 215 30% 26%; /* #334155 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 215 30% 26%; /* #334155 */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 30% 26%;
 
-    --primary: 201 96% 32%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 201 100% 50%; /* #00A3FF */
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 252 100% 67%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 20% 65%; /* #94A3B8 */
 
-    --accent: 25 95% 53%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 210 100% 97%; /* #E6F4FF */
+    --accent-foreground: 201 100% 50%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 201 96% 32%;
+    --border: 214 20% 91%; /* #E2E8F0 */
+    --input: 214 20% 91%;
+    --ring: 201 100% 50%;
 
     --radius: 0.5rem;
   }

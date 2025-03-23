@@ -85,7 +85,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout }) => {
 
   return (
     <div
-      className={`flex h-screen w-full bg-background dark:bg-micro-medium`}
+      className={`flex h-screen w-full bg-background dark:bg-micro-medium ${isRTL ? "flex-row-reverse" : "flex-row"}`}
       dir={isRTL ? "rtl" : "ltr"}
     >
       {/* Sidebar */}
@@ -104,6 +104,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout }) => {
           toggleTheme={toggleTheme}
           language={language}
           toggleLanguage={toggleLanguage}
+          sidebarCollapsed={sidebarCollapsed}
+          onSidebarToggle={toggleSidebar}
         />
 
         {/* Content Area */}

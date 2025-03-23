@@ -122,13 +122,13 @@ const Sidebar = ({ collapsed = true, onToggle = () => {} }: SidebarProps) => {
 
   return (
     <div
-      className={`h-full min-h-screen ${isCollapsed ? "w-16" : "w-56"} transition-all duration-300 bg-micro-dark border-r border-border flex flex-col`}
+      className={`h-full min-h-screen ${isCollapsed ? "w-16" : "w-56"} transition-all duration-300 bg-micro-dark border-r border-border flex flex-col light:bg-micro-light-card light:border-micro-light-border`}
       dir={isRTL ? "rtl" : "ltr"}
     >
       {/* Logo and Company Name */}
       <div className="p-4 border-b border-border flex items-center justify-between">
         <div className="flex items-center">
-          <div className="w-10 h-10 bg-micro-blue rounded-md flex items-center justify-center text-primary-foreground font-bold text-xl">
+          <div className="w-10 h-10 bg-micro-blue rounded-md flex items-center justify-center text-primary-foreground font-bold text-xl light:shadow-light-card">
             MK
           </div>
           {!isCollapsed && (
@@ -162,7 +162,7 @@ const Sidebar = ({ collapsed = true, onToggle = () => {} }: SidebarProps) => {
                       <TooltipTrigger asChild>
                         <Link
                           to={module.route}
-                          className="flex items-center justify-center p-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+                          className="flex items-center justify-center p-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors light:hover:bg-micro-light-accent light:hover:text-primary"
                         >
                           {module.icon}
                         </Link>
@@ -175,7 +175,7 @@ const Sidebar = ({ collapsed = true, onToggle = () => {} }: SidebarProps) => {
                 ) : (
                   <Link
                     to={module.route}
-                    className="flex items-center p-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+                    className="flex items-center p-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors light:hover:bg-micro-light-accent light:hover:text-primary"
                   >
                     <span className={isRTL ? "ml-3" : "mr-3"}>
                       {module.icon}

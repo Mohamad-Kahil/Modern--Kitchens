@@ -43,7 +43,7 @@ const ContentArea = ({
   const [activeTab, setActiveTab] = useState(submodules[0]?.id || "");
 
   return (
-    <div className="flex flex-col w-full h-full bg-background p-6 overflow-auto dark:bg-micro-medium">
+    <div className="flex flex-col w-full h-full bg-background p-6 overflow-auto dark:bg-micro-medium light:bg-micro-light-bg">
       {/* Breadcrumbs removed */}
 
       {/* Submodule Tabs */}
@@ -120,7 +120,7 @@ const ContentArea = ({
           {[1, 2, 3, 4].map((item) => (
             <div
               key={item}
-              className="bg-card p-4 rounded-lg border border-border shadow-sm dark:bg-micro-dark"
+              className="bg-card p-4 rounded-lg border border-border shadow-light-card dark:bg-micro-dark light:bg-micro-light-card"
             >
               <div className="flex justify-between items-start">
                 <div>
@@ -145,7 +145,7 @@ const ContentArea = ({
           <TabsContent
             key={submodule.id}
             value={submodule.id}
-            className="border rounded-lg p-6 bg-card min-h-[400px] dark:bg-micro-dark h-[calc(100vh-320px)] relative"
+            className="border rounded-lg p-6 bg-card min-h-[400px] dark:bg-micro-dark light:bg-micro-light-card shadow-light-card h-[calc(100vh-320px)] relative"
           >
             {submodule.content ? (
               submodule.content
