@@ -25,10 +25,8 @@ import {
   TooltipTrigger,
 } from "../ui/tooltip";
 
-// Create a context for language and theme
-// These will be properly implemented in their respective context files
-const LanguageContext = React.createContext({ isRTL: false });
-const ThemeContext = React.createContext({ theme: "light" });
+import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 interface SidebarProps {
   collapsed?: boolean;
@@ -37,9 +35,9 @@ interface SidebarProps {
 
 const Sidebar = ({ collapsed = true, onToggle = () => {} }: SidebarProps) => {
   const [isCollapsed, setIsCollapsed] = useState(collapsed);
-  // Use proper context with fallback
-  const { isRTL = false } = useContext(LanguageContext) || {};
-  const { theme = "light" } = useContext(ThemeContext) || {};
+  // Use language context
+  const { isRTL } = useLanguage();
+  const { theme } = useTheme();
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -122,7 +120,7 @@ const Sidebar = ({ collapsed = true, onToggle = () => {} }: SidebarProps) => {
 
   return (
     <div
-      className={`h-full min-h-screen ${isCollapsed ? "w-16" : "w-56"} transition-all duration-300 bg-micro-dark border-r border-border flex flex-col light:bg-micro-light-card light:border-micro-light-border`}
+      className={`h-full min-h-screen ${isCollapsed ? "w-16" : "w-56"} transition-all duration-300 bg-micro-dark border-r border-border flex flex-col light:bg-white light:border-gray-200 ${isRTL ? "order-last" : "order-first"}`}
       dir={isRTL ? "rtl" : "ltr"}
     >
       {/* Logo and Company Name */}

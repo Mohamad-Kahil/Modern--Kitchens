@@ -259,26 +259,35 @@ const DashboardModule = ({ userName = "Admin" }: DashboardModuleProps) => {
 
   return (
     <div className="flex flex-col w-full h-full bg-background p-6 overflow-hidden">
-      {/* Main container */}
-      <div className="flex flex-col h-full">
-        {/* Tab navigation and content container */}
-        <div className="flex-1 overflow-hidden">
+      {/* Tab navigation container - Fixed at the top */}
+      <div className="sticky top-0 z-10 mb-6 bg-card rounded-lg p-4 border border-border shadow-light-card">
+        <h2 className="text-xl font-semibold mb-3">Dashboard</h2>
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <TabsList className="w-full justify-start bg-muted/50">
+            <TabsTrigger
+              value="overview"
+              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            >
+              Overview
+            </TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="reports">Reports</TabsTrigger>
+            <TabsTrigger value="activity">Activity</TabsTrigger>
+            <TabsTrigger value="tasks">Tasks</TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </div>
+
+      {/* Main container with overflow */}
+      <div className="flex flex-col h-full overflow-auto">
+        {/* Content container */}
+        <div className="flex-1 overflow-auto">
           <Tabs
             value={activeTab}
             onValueChange={setActiveTab}
             className="flex flex-col h-full"
           >
-            <div className="mb-4">
-              <TabsList className="w-full justify-start">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="analytics">Analytics</TabsTrigger>
-                <TabsTrigger value="reports">Reports</TabsTrigger>
-                <TabsTrigger value="activity">Activity</TabsTrigger>
-                <TabsTrigger value="tasks">Tasks</TabsTrigger>
-              </TabsList>
-            </div>
-
-            <div className="h-full overflow-hidden">
+            <div className="h-full overflow-auto">
               <TabsContent
                 value="overview"
                 className="h-full data-[state=active]:flex data-[state=active]:flex-col"

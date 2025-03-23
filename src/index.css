@@ -4,34 +4,34 @@
 
 @layer base {
   :root {
-    /* Vibrant Light Mode */
-    --background: 210 33% 96%; /* #F0F4F8 */
-    --foreground: 215 30% 26%; /* #334155 */
+    /* Light Mode based on the image 2 */
+    --background: 0 0% 100%; /* #FFFFFF */
+    --foreground: 220 10% 20%; /* #303440 */
 
     --card: 0 0% 100%; /* #FFFFFF */
-    --card-foreground: 215 30% 26%; /* #334155 */
+    --card-foreground: 220 10% 20%; /* #303440 */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 30% 26%;
+    --popover-foreground: 220 10% 20%;
 
-    --primary: 201 100% 50%; /* #00A3FF */
+    --primary: 196 100% 47%; /* #00A8FF - blue from image */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 252 100% 67%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 20% 96%;
-    --muted-foreground: 215 20% 65%; /* #94A3B8 */
+    --muted: 210 20% 98%; /* #F8F9FB - light gray from image */
+    --muted-foreground: 215 16% 47%; /* #697386 - medium gray text */
 
-    --accent: 210 100% 97%; /* #E6F4FF */
-    --accent-foreground: 201 100% 50%;
+    --accent: 196 100% 47%; /* Same as primary */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 20% 91%; /* #E2E8F0 */
-    --input: 214 20% 91%;
-    --ring: 201 100% 50%;
+    --border: 220 13% 91%; /* #E5E7EB */
+    --input: 220 13% 91%;
+    --ring: 196 100% 47%; /* Same as primary */
 
     --radius: 0.5rem;
   }

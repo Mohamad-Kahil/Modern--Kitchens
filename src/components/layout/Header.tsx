@@ -9,7 +9,6 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -54,7 +53,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <header
-      className={`w-full h-18 bg-micro-dark border-b border-border flex items-center justify-between px-6 py-4 ${isRTL ? "flex-row-reverse" : "flex-row"}`}
+      className={`w-full h-18 bg-micro-dark border-b border-border flex items-center justify-between px-6 py-4 ${isRTL ? "flex-row-reverse" : "flex-row"} light:bg-white light:border-gray-200`}
     >
       <div className="flex items-center gap-3">
         <Button
@@ -83,16 +82,16 @@ const Header: React.FC<HeaderProps> = ({
         className={`flex items-center gap-4 ${isRTL ? "flex-row-reverse" : "flex-row"}`}
       >
         {/* Language Toggle */}
-        <div className="flex items-center gap-2">
-          <Globe className="h-5 w-5 text-muted-foreground" />
-          <span className="text-sm text-muted-foreground">
-            {language === "en" ? "EN" : "AR"}
-          </span>
-          <Switch
-            checked={language === "ar"}
-            onCheckedChange={toggleLanguage}
+        <div className="flex items-center">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleLanguage}
+            className="text-muted-foreground hover:text-foreground"
             aria-label="Toggle language"
-          />
+          >
+            <Globe className="h-5 w-5" />
+          </Button>
         </div>
 
         {/* Theme Toggle */}

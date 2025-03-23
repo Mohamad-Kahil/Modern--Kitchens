@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 import ContentArea from "./ContentArea";
 import { useTheme } from "@/context/ThemeContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface AppLayoutProps {
   children?: React.ReactNode;
@@ -17,9 +18,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout }) => {
   // Get theme from context
   const { theme, toggleTheme } = useTheme();
 
-  // State for language
-  const [language, setLanguage] = useState<"en" | "ar">("en");
-  const [isRTL, setIsRTL] = useState(false);
+  // Get language from context
+  const { language, isRTL, setLanguage } = useLanguage();
 
   // Set default theme to dark on initial load
   useEffect(() => {
@@ -41,19 +41,26 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout }) => {
 
   // Toggle functions
   const toggleSidebar = () => {
-    setSidebarCollapsed(!sidebarCollapsed);
+    setSidebarCollapsed((prev) => !prev);
   };
 
   const toggleLanguage = () => {
-    setLanguage((prev) => (prev === "en" ? "ar" : "en"));
-    setIsRTL((prev) => !prev);
+    setLanguage(language === "en" ? "ar" : "en");
   };
 
-  // Apply RTL changes
+  // Listen for language changes
   useEffect(() => {
-    // Apply RTL to document
-    document.dir = isRTL ? "rtl" : "ltr";
-  }, [isRTL]);
+    // Force re-render when language changes
+    const handleLanguageChange = () => {
+      // This will trigger a re-render
+      setSidebarCollapsed(sidebarCollapsed);
+    };
+
+    document.addEventListener("languageChange", handleLanguageChange);
+    return () => {
+      document.removeEventListener("languageChange", handleLanguageChange);
+    };
+  }, [sidebarCollapsed]);
 
   // Determine submodules based on current module
   const getSubmodules = () => {

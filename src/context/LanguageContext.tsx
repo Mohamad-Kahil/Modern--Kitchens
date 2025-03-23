@@ -99,7 +99,13 @@ function LanguageProvider({ children }: LanguageProviderProps) {
     document.documentElement.dir = direction;
     document.documentElement.lang = language;
     localStorage.setItem("language", language);
-  }, [language, direction]);
+
+    // Dispatch a custom event to notify the app of language change
+    const event = new CustomEvent("languageChange", {
+      detail: { language, direction, isRTL },
+    });
+    document.dispatchEvent(event);
+  }, [language, direction, isRTL]);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
