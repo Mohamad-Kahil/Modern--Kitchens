@@ -57,7 +57,6 @@ const Home = ({ defaultAuthenticated = false }: HomeProps) => {
             isAuthenticated ? (
               <AppLayout onLogout={handleLogout}>
                 <Routes>
-                  <Route path="dashboard" element={<DashboardModule />} />
                   <Route
                     path="design"
                     element={<PlaceholderModule title="Design" />}

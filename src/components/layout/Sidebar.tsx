@@ -91,7 +91,7 @@ const Sidebar = ({ collapsed = false, onToggle = () => {} }: SidebarProps) => {
     },
     {
       id: 10,
-      name: "Customer Service & Warranty",
+      name: "Customer Service",
       icon: <HeadphonesIcon size={20} />,
       route: "/customer-service",
     },
@@ -104,13 +104,13 @@ const Sidebar = ({ collapsed = false, onToggle = () => {} }: SidebarProps) => {
     { id: 12, name: "HR & Payroll", icon: <UserCog size={20} />, route: "/hr" },
     {
       id: 13,
-      name: "Web & Lead Generation",
+      name: "Website",
       icon: <Globe size={20} />,
       route: "/web",
     },
     {
       id: 14,
-      name: "Supplier & Document Management",
+      name: "Supplier",
       icon: <FileArchive size={20} />,
       route: "/supplier",
     },

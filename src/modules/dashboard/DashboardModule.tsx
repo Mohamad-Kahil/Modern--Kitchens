@@ -258,107 +258,138 @@ const DashboardModule = ({ userName = "Admin" }: DashboardModuleProps) => {
   const [activeTab, setActiveTab] = useState("overview");
 
   return (
-    <div className="flex flex-col w-full h-full bg-background p-6 overflow-auto">
-      {/* Breadcrumbs and welcome message */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
-          <p className="text-muted-foreground">Welcome back, {userName}</p>
+    <div className="flex flex-col w-full h-full bg-background p-6 overflow-hidden">
+      {/* Main container */}
+      <div className="flex flex-col h-full">
+        {/* Header and welcome message */}
+        <div className="flex flex-row justify-between items-center mb-4">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
+            <p className="text-muted-foreground">Welcome back, {userName}</p>
+          </div>
         </div>
-        <div className="mt-4 md:mt-0">
+
+        {/* Tab navigation and content container */}
+        <div className="flex-1 overflow-hidden">
           <Tabs
             value={activeTab}
             onValueChange={setActiveTab}
-            className="w-full"
+            className="flex flex-col h-full"
           >
-            <TabsList>
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="analytics">Analytics</TabsTrigger>
-              <TabsTrigger value="reports">Reports</TabsTrigger>
-            </TabsList>
+            <div className="mb-4">
+              <TabsList className="w-full justify-start">
+                <TabsTrigger value="overview">Overview</TabsTrigger>
+                <TabsTrigger value="analytics">Analytics</TabsTrigger>
+                <TabsTrigger value="reports">Reports</TabsTrigger>
+                <TabsTrigger value="activity">Activity</TabsTrigger>
+                <TabsTrigger value="tasks">Tasks</TabsTrigger>
+              </TabsList>
+            </div>
 
-            {/* Dashboard content */}
-            <TabsContent value="overview" className="space-y-6 mt-4">
-              {/* Stats row */}
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <DashboardStat
-                  title="Total Revenue"
-                  value="$45,231.89"
-                  change="+20.1%"
-                  isPositive={true}
-                  icon={
-                    <DollarSign className="h-4 w-4 text-muted-foreground" />
-                  }
-                />
-                <DashboardStat
-                  title="Orders"
-                  value="+2350"
-                  change="+12.2%"
-                  isPositive={true}
-                  icon={
-                    <ShoppingCart className="h-4 w-4 text-muted-foreground" />
-                  }
-                />
-                <DashboardStat
-                  title="Products"
-                  value="+12,234"
-                  change="+2.1%"
-                  isPositive={true}
-                  icon={<Package className="h-4 w-4 text-muted-foreground" />}
-                />
-                <DashboardStat
-                  title="Active Customers"
-                  value="+573"
-                  change="-0.4%"
-                  isPositive={false}
-                  icon={<Users className="h-4 w-4 text-muted-foreground" />}
-                />
-              </div>
+            <div className="h-full overflow-hidden">
+              <TabsContent
+                value="overview"
+                className="h-full data-[state=active]:flex data-[state=active]:flex-col"
+              >
+                {/* Stats row */}
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-4">
+                  <DashboardStat
+                    title="Total Revenue"
+                    value="$45,231.89"
+                    change="+20.1%"
+                    isPositive={true}
+                    icon={
+                      <DollarSign className="h-4 w-4 text-muted-foreground" />
+                    }
+                  />
+                  <DashboardStat
+                    title="Orders"
+                    value="+2350"
+                    change="+12.2%"
+                    isPositive={true}
+                    icon={
+                      <ShoppingCart className="h-4 w-4 text-muted-foreground" />
+                    }
+                  />
+                  <DashboardStat
+                    title="Products"
+                    value="+12,234"
+                    change="+2.1%"
+                    isPositive={true}
+                    icon={<Package className="h-4 w-4 text-muted-foreground" />}
+                  />
+                  <DashboardStat
+                    title="Active Customers"
+                    value="+573"
+                    change="-0.4%"
+                    isPositive={false}
+                    icon={<Users className="h-4 w-4 text-muted-foreground" />}
+                  />
+                </div>
 
-              {/* Charts row */}
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <ChartCard
-                  title="Revenue Overview"
-                  description="Monthly revenue performance"
-                />
-                <ChartCard
-                  title="Sales by Category"
-                  description="Distribution of sales by product category"
-                />
-              </div>
+                {/* Charts row */}
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2 h-[calc(100%-120px)]">
+                  <ChartCard
+                    title="Revenue Overview"
+                    description="Monthly revenue performance"
+                  />
+                  <ChartCard
+                    title="Sales by Category"
+                    description="Distribution of sales by product category"
+                  />
+                </div>
+              </TabsContent>
 
-              {/* Activity and tasks row */}
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-6">
-                <RecentActivity />
-                <UpcomingTasks />
-              </div>
-            </TabsContent>
+              <TabsContent
+                value="analytics"
+                className="h-full data-[state=active]:flex data-[state=active]:flex-col"
+              >
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2 h-full">
+                  <ChartCard
+                    title="Sales Trends"
+                    description="Year-over-year comparison"
+                  />
+                  <ChartCard
+                    title="Customer Demographics"
+                    description="Customer age and location distribution"
+                  />
+                </div>
+              </TabsContent>
 
-            <TabsContent value="analytics" className="space-y-6 mt-4">
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <ChartCard
-                  title="Sales Trends"
-                  description="Year-over-year comparison"
-                />
-                <ChartCard
-                  title="Customer Demographics"
-                  description="Customer age and location distribution"
-                />
-              </div>
-            </TabsContent>
+              <TabsContent
+                value="reports"
+                className="h-full data-[state=active]:flex data-[state=active]:flex-col"
+              >
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2 h-full">
+                  <ChartCard
+                    title="Monthly Reports"
+                    description="Download and view monthly performance reports"
+                  />
+                  <ChartCard
+                    title="Custom Reports"
+                    description="Generate custom reports based on selected parameters"
+                  />
+                </div>
+              </TabsContent>
 
-            <TabsContent value="reports" className="space-y-6 mt-4">
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <ChartCard
-                  title="Monthly Reports"
-                  description="Download and view monthly performance reports"
-                />
-                <ChartCard
-                  title="Custom Reports"
-                  description="Generate custom reports based on selected parameters"
-                />
-              </div>
-            </TabsContent>
+              <TabsContent
+                value="activity"
+                className="h-full data-[state=active]:flex data-[state=active]:flex-col"
+              >
+                <div className="h-full">
+                  <RecentActivity />
+                </div>
+              </TabsContent>
+
+              <TabsContent
+                value="tasks"
+                className="h-full data-[state=active]:flex data-[state=active]:flex-col"
+              >
+                <div className="h-full">
+                  <UpcomingTasks />
+                </div>
+              </TabsContent>
+            </div>
           </Tabs>
         </div>
       </div>
