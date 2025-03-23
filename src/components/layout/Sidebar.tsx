@@ -16,11 +16,8 @@ import {
   Globe,
   FileArchive,
   Shield,
-  ChevronLeft,
-  ChevronRight,
   Menu,
 } from "lucide-react";
-import { Button } from "../ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -38,7 +35,7 @@ interface SidebarProps {
   onToggle?: () => void;
 }
 
-const Sidebar = ({ collapsed = false, onToggle = () => {} }: SidebarProps) => {
+const Sidebar = ({ collapsed = true, onToggle = () => {} }: SidebarProps) => {
   const [isCollapsed, setIsCollapsed] = useState(collapsed);
   // Use proper context with fallback
   const { isRTL = false } = useContext(LanguageContext) || {};
@@ -140,37 +137,17 @@ const Sidebar = ({ collapsed = false, onToggle = () => {} }: SidebarProps) => {
             </div>
           )}
         </div>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={toggleSidebar}
-          className="text-muted-foreground hover:text-foreground"
-        >
-          {isCollapsed ? (
-            isRTL ? (
-              <ChevronLeft size={18} />
-            ) : (
-              <ChevronRight size={18} />
-            )
-          ) : isRTL ? (
-            <ChevronRight size={18} />
-          ) : (
-            <ChevronLeft size={18} />
-          )}
-        </Button>
       </div>
 
       {/* Mobile Toggle */}
       <div className="lg:hidden p-2 border-b border-border">
-        <Button
-          variant="outline"
-          size="sm"
-          className="w-full"
+        <button
+          className="w-full flex items-center justify-center p-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
           onClick={toggleSidebar}
         >
           <Menu size={16} className={isRTL ? "ml-2" : "mr-2"} />
           {!isCollapsed && (isRTL ? "القائمة" : "Menu")}
-        </Button>
+        </button>
       </div>
 
       {/* Navigation Links */}

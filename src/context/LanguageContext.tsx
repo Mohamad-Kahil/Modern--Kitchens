@@ -81,13 +81,14 @@ interface LanguageProviderProps {
   children: ReactNode;
 }
 
-export const LanguageProvider: React.FC<LanguageProviderProps> = ({
-  children,
-}) => {
+function LanguageProvider({ children }: LanguageProviderProps) {
   const [language, setLanguageState] = useState<Language>(() => {
     // Try to get the language from localStorage, default to 'en'
-    const savedLanguage = localStorage.getItem("language");
-    return (savedLanguage === "ar" ? "ar" : "en") as Language;
+    if (typeof window !== "undefined") {
+      const savedLanguage = localStorage.getItem("language");
+      return (savedLanguage === "ar" ? "ar" : "en") as Language;
+    }
+    return defaultLanguage;
   });
 
   const direction: Direction = language === "ar" ? "rtl" : "ltr";
@@ -122,14 +123,15 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({
       {children}
     </LanguageContext.Provider>
   );
-};
+}
 
-export const useLanguage = (): LanguageContextType => {
+function useLanguage(): LanguageContextType {
   const context = useContext(LanguageContext);
   if (context === undefined) {
     throw new Error("useLanguage must be used within a LanguageProvider");
   }
   return context;
-};
+}
 
+export { LanguageProvider, useLanguage };
 export default LanguageProvider;

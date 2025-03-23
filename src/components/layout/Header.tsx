@@ -1,5 +1,13 @@
-import React, { useState, useContext, createContext } from "react";
-import { Moon, Sun, Globe, User, LogOut } from "lucide-react";
+import React, { useState, useContext } from "react";
+import {
+  Moon,
+  Sun,
+  Globe,
+  User,
+  LogOut,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import {
@@ -11,36 +19,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-// Create contexts for theme and language if they don't exist yet
-type ThemeContextType = {
-  theme: "light" | "dark";
-  toggleTheme: () => void;
-};
-
-type LanguageContextType = {
-  language: "en" | "ar";
-  isRTL: boolean;
-  toggleLanguage: () => void;
-};
-
-// Create default contexts
-const defaultThemeContext: ThemeContextType = {
-  theme: "light",
-  toggleTheme: () => {},
-};
-
-const defaultLanguageContext: LanguageContextType = {
-  language: "en",
-  isRTL: false,
-  toggleLanguage: () => {},
-};
-
-// Create or use existing contexts
-const ThemeContext = createContext<ThemeContextType>(defaultThemeContext);
-const LanguageContext = createContext<LanguageContextType>(
-  defaultLanguageContext,
-);
+import { useTheme } from "@/context/ThemeContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface HeaderProps {
   moduleTitle?: string;
@@ -48,6 +28,8 @@ interface HeaderProps {
   userAvatar?: string;
   isLoggedIn?: boolean;
   onLogout?: () => void;
+  sidebarCollapsed?: boolean;
+  onSidebarToggle?: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -56,54 +38,44 @@ const Header: React.FC<HeaderProps> = ({
   userAvatar = "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
   isLoggedIn = true,
   onLogout = () => console.log("Logout clicked"),
+  sidebarCollapsed = true,
+  onSidebarToggle = () => {},
 }) => {
-  // Local state for theme and language if contexts aren't available
-  const [localTheme, setLocalTheme] = useState<"light" | "dark">("light");
+  // Use the theme context
+  const { theme, toggleTheme } = useTheme();
 
-  // Initialize theme on component mount
-  React.useEffect(() => {
-    // Apply initial theme
-    document.documentElement.classList.toggle("dark", localTheme === "dark");
-    document.documentElement.classList.toggle("light", localTheme === "light");
-  }, [localTheme]);
-  const [localLanguage, setLocalLanguage] = useState<"en" | "ar">("en");
-  const [localIsRTL, setLocalIsRTL] = useState(false);
+  // Use the language context
+  const { language, isRTL, setLanguage } = useLanguage();
 
-  // Import contexts properly
-  const { theme, toggleTheme } = useContext(ThemeContext) || {
-    theme: localTheme,
-    toggleTheme: () => {
-      const newTheme = localTheme === "light" ? "dark" : "light";
-      setLocalTheme(newTheme);
-      // Apply theme to document
-      document.documentElement.classList.remove("light", "dark");
-      document.documentElement.classList.add(newTheme);
-    },
+  // Toggle language function
+  const toggleLanguage = () => {
+    setLanguage(language === "en" ? "ar" : "en");
   };
-
-  const {
-    language,
-    isRTL,
-    toggleLanguage: contextToggleLanguage,
-  } = useContext(LanguageContext) || {
-    language: localLanguage,
-    isRTL: localIsRTL,
-    toggleLanguage: undefined,
-  };
-
-  // Use context toggle if available, otherwise use local toggle
-  const toggleLanguage =
-    contextToggleLanguage ||
-    (() => {
-      setLocalLanguage((prev) => (prev === "en" ? "ar" : "en"));
-      setLocalIsRTL((prev) => !prev);
-    });
 
   return (
     <header
       className={`w-full h-18 bg-micro-dark border-b border-border flex items-center justify-between px-6 py-4 ${isRTL ? "flex-row-reverse" : "flex-row"}`}
     >
-      <div className="flex items-center">
+      <div className="flex items-center gap-3">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onSidebarToggle}
+          className="text-muted-foreground hover:text-foreground"
+          aria-label="Toggle sidebar"
+        >
+          {sidebarCollapsed ? (
+            isRTL ? (
+              <ChevronLeft size={18} />
+            ) : (
+              <ChevronRight size={18} />
+            )
+          ) : isRTL ? (
+            <ChevronRight size={18} />
+          ) : (
+            <ChevronLeft size={18} />
+          )}
+        </Button>
         <h1 className="text-xl font-semibold text-foreground">{moduleTitle}</h1>
       </div>
 

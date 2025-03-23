@@ -22,14 +22,17 @@ interface ThemeProviderProps {
   defaultTheme?: Theme;
 }
 
-export const ThemeProvider = ({
+function ThemeProvider({
   children,
-  defaultTheme = "dark", // Changed default to dark mode based on the image
-}: ThemeProviderProps) => {
+  defaultTheme = "dark", // Default to dark mode
+}: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(() => {
     // Try to get the theme from localStorage
-    const savedTheme = localStorage.getItem("theme") as Theme;
-    return savedTheme || defaultTheme;
+    if (typeof window !== "undefined") {
+      const savedTheme = localStorage.getItem("theme") as Theme;
+      return savedTheme || defaultTheme;
+    }
+    return defaultTheme;
   });
 
   useEffect(() => {
@@ -63,17 +66,17 @@ export const ThemeProvider = ({
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
-};
+}
 
-export const useTheme = (): ThemeContextType => {
+function useTheme(): ThemeContextType {
   const context = useContext(ThemeContext);
   if (context === undefined) {
     throw new Error("useTheme must be used within a ThemeProvider");
   }
   return context;
-};
+}
 
-export const ThemeToggle = () => {
+function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
 
   return (
@@ -91,6 +94,7 @@ export const ThemeToggle = () => {
       )}
     </Button>
   );
-};
+}
 
+export { ThemeProvider, useTheme, ThemeToggle };
 export default ThemeProvider;
