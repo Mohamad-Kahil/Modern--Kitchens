@@ -52,7 +52,7 @@ const Home = ({ defaultAuthenticated = false }: HomeProps) => {
           }
         />
         <Route
-          path="*"
+          path="/*"
           element={
             isAuthenticated ? (
               <AppLayout onLogout={handleLogout}>

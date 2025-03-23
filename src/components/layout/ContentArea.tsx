@@ -24,6 +24,7 @@ interface ContentAreaProps {
     href: string;
   }[];
   isRTL?: boolean;
+  children?: React.ReactNode;
 }
 
 const ContentArea = ({
@@ -39,6 +40,7 @@ const ContentArea = ({
     { label: "Dashboard", href: "/dashboard" },
   ],
   isRTL = false,
+  children,
 }: ContentAreaProps) => {
   const [activeTab, setActiveTab] = useState(submodules[0]?.id || "");
 
@@ -164,6 +166,9 @@ const ContentArea = ({
           </TabsContent>
         ))}
       </Tabs>
+
+      {/* Render children if provided */}
+      {children}
     </div>
   );
 };

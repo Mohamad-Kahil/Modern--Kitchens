@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import ContentArea from "./ContentArea";
@@ -98,8 +98,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout }) => {
             submodules={getSubmodules()}
             breadcrumbs={getBreadcrumbs()}
             isRTL={isRTL}
-          />
-          {children}
+          >
+            {children || <Outlet />}
+          </ContentArea>
         </div>
       </div>
     </div>

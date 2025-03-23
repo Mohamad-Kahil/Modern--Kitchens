@@ -44,7 +44,7 @@ const DesignModule: React.FC = () => {
   ];
 
   return (
-    <div className="w-full h-full p-6 bg-background">
+    <div className="w-full h-full bg-background">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-foreground">
           {language === "en" ? "Design Module" : "وحدة التصميم"}
