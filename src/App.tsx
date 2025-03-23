@@ -4,6 +4,7 @@ import Home from "./components/home";
 import routes from "tempo-routes";
 import { ThemeProvider } from "./context/ThemeContext";
 import { LanguageProvider } from "./context/LanguageContext";
+import DesignModule from "./modules/design";
 
 function App() {
   const basename = import.meta.env.BASE_URL;
@@ -16,6 +17,7 @@ function App() {
             <>
               <Routes>
                 <Route path="/*" element={<Home />} />
+                <Route path="/design/*" element={<DesignModule />} />
                 {import.meta.env.VITE_TEMPO === "true" && (
                   <Route path="/tempobook/*" />
                 )}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
@@ -15,11 +15,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout }) => {
   // State for sidebar collapse
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
-  // Get theme from context
-  const { theme, toggleTheme } = useTheme();
-
-  // Get language from context
-  const { language, isRTL, setLanguage } = useLanguage();
+  // Get theme and language from context
+  const { theme } = useTheme();
+  const { language, isRTL } = useLanguage();
 
   // Set default theme to dark on initial load
   useEffect(() => {
@@ -39,28 +37,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout }) => {
     return path.charAt(0).toUpperCase() + path.slice(1).replace(/-/g, " ");
   };
 
-  // Toggle functions
+  // Toggle sidebar function
   const toggleSidebar = () => {
     setSidebarCollapsed((prev) => !prev);
   };
-
-  const toggleLanguage = () => {
-    setLanguage(language === "en" ? "ar" : "en");
-  };
-
-  // Listen for language changes
-  useEffect(() => {
-    // Force re-render when language changes
-    const handleLanguageChange = () => {
-      // This will trigger a re-render
-      setSidebarCollapsed(sidebarCollapsed);
-    };
-
-    document.addEventListener("languageChange", handleLanguageChange);
-    return () => {
-      document.removeEventListener("languageChange", handleLanguageChange);
-    };
-  }, [sidebarCollapsed]);
 
   // Determine submodules based on current module
   const getSubmodules = () => {
@@ -107,10 +87,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, onLogout }) => {
           userAvatar="https://api.dicebear.com/7.x/avataaars/svg?seed=John"
           isLoggedIn={true}
           onLogout={onLogout || (() => console.log("Logout clicked"))}
-          theme={theme}
-          toggleTheme={toggleTheme}
-          language={language}
-          toggleLanguage={toggleLanguage}
           sidebarCollapsed={sidebarCollapsed}
           onSidebarToggle={toggleSidebar}
         />
