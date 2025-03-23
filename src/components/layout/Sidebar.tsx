@@ -40,8 +40,9 @@ interface SidebarProps {
 
 const Sidebar = ({ collapsed = false, onToggle = () => {} }: SidebarProps) => {
   const [isCollapsed, setIsCollapsed] = useState(collapsed);
-  const { isRTL } = useContext(LanguageContext);
-  const { theme } = useContext(ThemeContext);
+  // Use proper context with fallback
+  const { isRTL = false } = useContext(LanguageContext) || {};
+  const { theme = "light" } = useContext(ThemeContext) || {};
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -135,7 +136,7 @@ const Sidebar = ({ collapsed = false, onToggle = () => {} }: SidebarProps) => {
           </div>
           {!isCollapsed && (
             <div className="ml-3 mr-3 font-semibold text-foreground">
-              Modern Kitchens
+              {isRTL ? "المطابخ الحديثة" : "Modern Kitchens"}
             </div>
           )}
         </div>
@@ -168,7 +169,7 @@ const Sidebar = ({ collapsed = false, onToggle = () => {} }: SidebarProps) => {
           onClick={toggleSidebar}
         >
           <Menu size={16} className={isRTL ? "ml-2" : "mr-2"} />
-          {!isCollapsed && "Menu"}
+          {!isCollapsed && (isRTL ? "القائمة" : "Menu")}
         </Button>
       </div>
 
@@ -214,7 +215,9 @@ const Sidebar = ({ collapsed = false, onToggle = () => {} }: SidebarProps) => {
       {/* Footer */}
       <div className="p-4 border-t border-border text-xs text-muted-foreground">
         {!isCollapsed && (
-          <div className="text-center">© 2023 Modern Kitchens</div>
+          <div className="text-center">
+            © 2023 {isRTL ? "المطابخ الحديثة" : "Modern Kitchens"}
+          </div>
         )}
       </div>
     </div>

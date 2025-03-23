@@ -65,45 +65,39 @@ const Header: React.FC<HeaderProps> = ({
     // Apply initial theme
     document.documentElement.classList.toggle("dark", localTheme === "dark");
     document.documentElement.classList.toggle("light", localTheme === "light");
-  }, []);
+  }, [localTheme]);
   const [localLanguage, setLocalLanguage] = useState<"en" | "ar">("en");
   const [localIsRTL, setLocalIsRTL] = useState(false);
 
-  // Try to use context if available, otherwise use local state
-  let theme: "light" | "dark";
-  let toggleTheme: () => void;
-  let language: "en" | "ar";
-  let isRTL: boolean;
-  let toggleLanguage: () => void;
-
-  try {
-    const themeContext = useContext(ThemeContext);
-    theme = themeContext.theme;
-    toggleTheme = themeContext.toggleTheme;
-  } catch (e) {
-    theme = localTheme;
-    toggleTheme = () => {
+  // Import contexts properly
+  const { theme, toggleTheme } = useContext(ThemeContext) || {
+    theme: localTheme,
+    toggleTheme: () => {
       const newTheme = localTheme === "light" ? "dark" : "light";
       setLocalTheme(newTheme);
       // Apply theme to document
       document.documentElement.classList.remove("light", "dark");
       document.documentElement.classList.add(newTheme);
-    };
-  }
+    },
+  };
 
-  try {
-    const languageContext = useContext(LanguageContext);
-    language = languageContext.language;
-    isRTL = languageContext.isRTL;
-    toggleLanguage = languageContext.toggleLanguage;
-  } catch (e) {
-    language = localLanguage;
-    isRTL = localIsRTL;
-    toggleLanguage = () => {
+  const {
+    language,
+    isRTL,
+    toggleLanguage: contextToggleLanguage,
+  } = useContext(LanguageContext) || {
+    language: localLanguage,
+    isRTL: localIsRTL,
+    toggleLanguage: undefined,
+  };
+
+  // Use context toggle if available, otherwise use local toggle
+  const toggleLanguage =
+    contextToggleLanguage ||
+    (() => {
       setLocalLanguage((prev) => (prev === "en" ? "ar" : "en"));
       setLocalIsRTL((prev) => !prev);
-    };
-  }
+    });
 
   return (
     <header
@@ -161,21 +155,23 @@ const Header: React.FC<HeaderProps> = ({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>
+                {language === "en" ? "My Account" : "حسابي"}
+              </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <User className={`h-4 w-4 ${isRTL ? "ml-3" : "mr-3"}`} />
-                <span>Profile</span>
+                <span>{language === "en" ? "Profile" : "الملف الشخصي"}</span>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={onLogout}>
                 <LogOut className={`h-4 w-4 ${isRTL ? "ml-3" : "mr-3"}`} />
-                <span>Logout</span>
+                <span>{language === "en" ? "Logout" : "تسجيل الخروج"}</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
           <Button variant="default" size="sm">
-            Login
+            {language === "en" ? "Login" : "تسجيل الدخول"}
           </Button>
         )}
       </div>
