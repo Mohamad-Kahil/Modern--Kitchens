@@ -45,17 +45,6 @@ const DesignModule: React.FC = () => {
 
   return (
     <div className="w-full h-full bg-background">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-foreground">
-          {language === "en" ? "Design Module" : "وحدة التصميم"}
-        </h1>
-        <p className="text-muted-foreground">
-          {language === "en"
-            ? "Design and customize kitchen products and layouts"
-            : "تصميم وتخصيص منتجات وتخطيطات المطبخ"}
-        </p>
-      </div>
-
       <Tabs defaultValue="cabinet-designer" className="w-full">
         <TabsList className="mb-4 w-full flex flex-wrap justify-start gap-1">
           {tabs.map((tab) => (
