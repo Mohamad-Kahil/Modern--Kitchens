@@ -46,7 +46,7 @@ const DesignModule: React.FC = () => {
   return (
     <div className="w-full h-full bg-background">
       <Tabs defaultValue="cabinet-designer" className="w-full">
-        <TabsList className="mb-4 w-full flex flex-wrap justify-start gap-1">
+        <TabsList className="mb-4 w-full flex flex-wrap justify-start gap-1 rounded-none">
           {tabs.map((tab) => (
             <TabsTrigger key={tab.id} value={tab.id}>
               {tab.label}
