@@ -18,7 +18,7 @@ const ContentArea = ({
   children,
 }: ContentAreaProps) => {
   return (
-    <div className="flex flex-col w-full h-full bg-background p-6 overflow-hidden dark:bg-micro-medium light:bg-white">
+    <div className="flex flex-col w-full h-full bg-background p-2 overflow-hidden dark:bg-micro-medium light:bg-white">
       {children}
     </div>
   );
